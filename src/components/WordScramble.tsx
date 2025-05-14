@@ -12,6 +12,7 @@ const WordScramble: React.FC<WordScrambleProps> = ({ word }) => {
     const [userInput, setUserInput] = useState<string>('');
     const [score, setScore] = useState<number>(0);
     const [message, setMessage] = useState<string>('');
+    const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
 
     useEffect(() => {
         if (word) {
@@ -30,9 +31,11 @@ const WordScramble: React.FC<WordScrambleProps> = ({ word }) => {
             setScrambledWord(scrambleWord(randomWord));
             setUserInput('');
             setMessage('');
+            setMessageType('');
         } catch (error) {
             console.error("Failed to load words:", error);
-            setMessage("Failed to load words. Please try again.");
+            setMessage("Error al cargar palabras. Intenta de nuevo.");
+            setMessageType('error');
         }
     };
 
@@ -44,27 +47,30 @@ const WordScramble: React.FC<WordScrambleProps> = ({ word }) => {
         e.preventDefault();
         if (userInput.toLowerCase() === internalWord.toLowerCase()) {
             setScore(score + 1);
-            setMessage('Correct! Loading new word...');
+            setMessage('¡Correcto! Cargando nueva palabra...');
+            setMessageType('success');
             loadNewWord();
         } else {
-            setMessage('Try again!');
+            setMessage('¡Intenta de nuevo!');
+            setMessageType('error');
         }
     };
 
     return (
         <div className="word-scramble">
-            <p>Score: {score}</p>
-            <p>Unscramble the word: {scrambledWord}</p>
+            <p>Desordena esta palabra:</p>
+            <div className="scrambled-word">{scrambledWord}</div>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
                     value={userInput}
                     onChange={handleInputChange}
-                    placeholder="Your guess"
+                    placeholder="Tu respuesta"
+                    autoFocus
                 />
-                <button type="submit">Submit</button>
+                <button type="submit">Comprobar</button>
             </form>
-            {message && <p>{message}</p>}
+            {message && <p className={`message ${messageType}`}>{message}</p>}
         </div>
     );
 };

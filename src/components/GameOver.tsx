@@ -1,4 +1,5 @@
 import React from 'react';
+import './Game.css';
 
 interface GameOverProps {
   score: number;
@@ -7,10 +8,10 @@ interface GameOverProps {
 
 const GameOver: React.FC<GameOverProps> = ({ score, onRestart }) => {
   return (
-    <div className="game-over">
-      <h1>Game Over</h1>
-      <p>Your Score: {score}</p>
-      <button onClick={onRestart}>Play Again</button>
+    <div className="glass-card game-over">
+      <h1>¡Juego Terminado!</h1>
+      <p>Tu Puntuación: <span className="score-value">{score}</span></p>
+      <button className="start-button" onClick={onRestart}>Jugar de Nuevo</button>
     </div>
   );
 };

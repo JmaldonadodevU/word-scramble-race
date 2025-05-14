@@ -1,39 +1,148 @@
 .word-scramble {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  margin: 1.5rem 0;
+  width: 100%;
+  max-width: 500px;
+}
+
+.word-scramble p {
+  margin-bottom: 1rem;
+}
+
+.scrambled-word {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #333;
+  margin: 1.5rem 0;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .word-scramble form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 300px;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 300px;
+  gap: 1rem;
 }
 
 .word-scramble input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+  padding: 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.word-scramble input:focus {
+  outline: none;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.7);
 }
 
 .word-scramble button {
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.8), rgba(5, 150, 105, 0.8));
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
 }
 
 .word-scramble button:hover {
-    background-color: #45a049;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9));
+}
+
+.word-scramble button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.message {
+  margin-top: 1rem;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.message.success {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.message.error {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .word-scramble {
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  
+  .scrambled-word {
+    font-size: 1.75rem;
+    margin: 1rem 0;
+  }
+  
+  .word-scramble form {
+    max-width: 100%;
+  }
+  
+  .word-scramble button {
+    padding: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .word-scramble {
+    padding: 1rem;
+  }
+  
+  .scrambled-word {
+    font-size: 1.5rem;
+    margin: 0.75rem 0;
+    letter-spacing: 2px;
+  }
+  
+  .word-scramble input {
+    padding: 0.8rem;
+  }
+  
+  .word-scramble button {
+    padding: 0.8rem;
+  }
+  
+  .message {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
 }

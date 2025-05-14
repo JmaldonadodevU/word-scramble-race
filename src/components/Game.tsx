@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import useGameState from '../hooks/useGameState';
 import WordScramble from './WordScramble';
 import GameOver from './GameOver';
+import './Game.css';
 
 const Game: React.FC = () => {
     const {
@@ -14,10 +15,9 @@ const Game: React.FC = () => {
     } = useGameState();
 
     useEffect(() => {
-        if (isGameOver) {
-            // Handle game over logic here, e.g., save score, show results
-        }
-    }, [isGameOver]);
+        // Iniciar el juego automáticamente al cargar el componente
+        startGame();
+    }, []);
 
     return (
         <div className="game-container">
@@ -25,11 +25,21 @@ const Game: React.FC = () => {
                 <GameOver score={score} onRestart={resetGame} />
             ) : (
                 <>
-                    <h1>Word Scramble Race</h1>
-                    <p>Score: {score}</p>
-                    <p>Time Left: {timer}</p>
+                    <h1 className="game-title">Word Scramble Race</h1>
+                    <div className="game-header">
+                        <div className="game-stats">
+                            <div className="stat-item">
+                                <span className="stat-label">Puntuación</span>
+                                <span className="stat-value">{score}</span>
+                            </div>
+                            <div className="stat-item">
+                                <span className="stat-label">Tiempo</span>
+                                <span className="stat-value timer-value">{timer}</span>
+                            </div>
+                        </div>
+                    </div>
                     <WordScramble word={currentWord} />
-                    <button onClick={startGame}>Start Game</button>
+                    <button className="start-button" onClick={startGame}>Reiniciar Juego</button>
                 </>
             )}
         </div>
