@@ -12,6 +12,7 @@ const Game: React.FC = () => {
         isGameOver,
         startGame,
         resetGame,
+        nextWord
     } = useGameState();
 
     useEffect(() => {
@@ -38,7 +39,10 @@ const Game: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <WordScramble word={currentWord} />
+                    <WordScramble 
+                        word={currentWord} 
+                        onCorrectGuess={nextWord}
+                    />
                     <button className="start-button" onClick={startGame}>Reiniciar Juego</button>
                 </>
             )}

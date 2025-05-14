@@ -1,55 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import { fetchWords, scrambleWord } from '../services/wordService';
+import { scrambleWord } from '../services/wordService';
 import './WordScramble.css';
 
 interface WordScrambleProps {
     word?: string;
+    onCorrectGuess?: () => Promise<void>;
 }
 
-const WordScramble: React.FC<WordScrambleProps> = ({ word }) => {
-    const [internalWord, setInternalWord] = useState<string>('');
+const WordScramble: React.FC<WordScrambleProps> = ({ word, onCorrectGuess }) => {
     const [scrambledWord, setScrambledWord] = useState<string>('');
     const [userInput, setUserInput] = useState<string>('');
-    const [score, setScore] = useState<number>(0);
     const [message, setMessage] = useState<string>('');
     const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
 
     useEffect(() => {
         if (word) {
-            setInternalWord(word);
             setScrambledWord(scrambleWord(word));
-        } else {
-            loadNewWord();
-        }
-    }, [word]);
-
-    const loadNewWord = async () => {
-        try {
-            const words = await fetchWords();
-            const randomWord = words[Math.floor(Math.random() * words.length)];
-            setInternalWord(randomWord);
-            setScrambledWord(scrambleWord(randomWord));
             setUserInput('');
             setMessage('');
             setMessageType('');
-        } catch (error) {
-            console.error("Failed to load words:", error);
-            setMessage("Error al cargar palabras. Intenta de nuevo.");
-            setMessageType('error');
         }
-    };
+    }, [word]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUserInput(e.target.value);
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (userInput.toLowerCase() === internalWord.toLowerCase()) {
-            setScore(score + 1);
+        if (userInput.toLowerCase() === word?.toLowerCase()) {
             setMessage('¡Correcto! Cargando nueva palabra...');
             setMessageType('success');
-            loadNewWord();
+            if (onCorrectGuess) {
+                await onCorrectGuess();
+            }
         } else {
             setMessage('¡Intenta de nuevo!');
             setMessageType('error');

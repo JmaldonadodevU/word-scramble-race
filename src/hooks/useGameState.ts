@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { fetchWords } from '../services/wordService';
 
 const useGameState = () => {
     const [currentWord, setCurrentWord] = useState('');
@@ -17,8 +18,19 @@ const useGameState = () => {
         }
     }, [timer, isGameOver]);
 
+    // Función para obtener una nueva palabra aleatoria
+    const loadNewWord = async () => {
+        try {
+            const words = await fetchWords();
+            const randomWord = words[Math.floor(Math.random() * words.length)];
+            setCurrentWord(randomWord);
+        } catch (error) {
+            console.error("Error al cargar palabras:", error);
+            setCurrentWord('default'); // En caso de error, usamos una palabra por defecto
+        }
+    };
+
     const resetGame = () => {
-        setCurrentWord('');
         setScore(0);
         setTimer(60);
         setIsGameOver(false);
@@ -28,9 +40,16 @@ const useGameState = () => {
         setScore(prevScore => prevScore + points);
     };
 
-    // Add this function since it's used in Game.tsx
-    const startGame = () => {
+    // Modificamos startGame para que también cargue una nueva palabra
+    const startGame = async () => {
         resetGame();
+        await loadNewWord(); // Cargamos una nueva palabra al iniciar el juego
+    };
+
+    // Función para avanzar a la siguiente palabra
+    const nextWord = async () => {
+        await loadNewWord();
+        updateScore(1); // Incrementamos la puntuación cuando el jugador acierta
     };
 
     return {
@@ -42,6 +61,7 @@ const useGameState = () => {
         resetGame,
         updateScore,
         startGame,
+        nextWord,
     };
 };
 
