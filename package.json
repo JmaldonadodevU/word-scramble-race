@@ -1,0 +1,33 @@
+{
+  "name": "word-scramble-race",
+  "version": "1.0.0",
+  "description": "A fun and interactive word scramble game built with React, Vite, and Capacitor.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@capacitor/cli": "^7.2.0",
+    "@capacitor/core": "^7.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.16.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^1.0.0",
+    "typescript": "^4.4.3",
+    "vite": "^2.6.4"
+  },
+  "keywords": [
+    "word",
+    "scramble",
+    "game",
+    "react",
+    "vite",
+    "capacitor"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
